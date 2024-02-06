@@ -16,7 +16,6 @@ struct ScrollPreferenceKey: PreferenceKey {
 }
 
 struct ScrollContainerView<Content: View>: View {
-    @State private var collapsedState: Bool = false
     @Binding var currentScroll: CGFloat
     let minScroll: CGFloat
     let maxScroll: CGFloat

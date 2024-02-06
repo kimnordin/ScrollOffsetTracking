@@ -8,22 +8,35 @@
 import SwiftUI
 
 struct MainView: View {
-    @State private var currentScroll: CGFloat = 150
-    @State private var minScroll: CGFloat = 50
-    @State private var maxScroll: CGFloat = 250
+    @State private var currentHeight: CGFloat = 150
+    @State private var minHeight: CGFloat = 50
+    @State private var maxHeight: CGFloat = 250
     
     var body: some View {
         VStack {
-            Rectangle()
-                .frame(height: currentScroll)
-                .frame(maxWidth: 300)
-                .background(Color.red)
-            ScrollContainerView(currentScroll: $currentScroll, minScroll: minScroll, maxScroll: maxScroll) {
+            ZStack {
+                RoundedRectangle(cornerSize: .init(width: 10, height: 10))
+                    .fill(.red)
+                    .frame(height: currentHeight)
+                    .frame(maxWidth: 300)
+                Text("Height: \(Int(currentHeight))")
+            }
+            ScrollContainerView(currentScroll: $currentHeight, minScroll: minHeight, maxScroll: maxHeight) {
                 ForEach(0..<10) { cellIndex in
-                    Text("Cell #\(cellIndex)")
-                        .foregroundColor(.red)
+                    ZStack {
+                        SimpleCellView(index: cellIndex)
+                    }
                 }
             }
+        }
+    }
+    
+    @ViewBuilder private func SimpleCellView(index: Int) -> some View {
+        ZStack {
+            RoundedRectangle(cornerSize: .init(width: 5, height: 5))
+                .fill(.blue)
+                .frame(width: 200, height: 30)
+            Text("Cell #\(index)")
         }
     }
 }
